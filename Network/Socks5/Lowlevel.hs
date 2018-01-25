@@ -7,7 +7,6 @@ module Network.Socks5.Lowlevel
     ) where
 
 import Network.Socket
-import Network.BSD
 import Network.Socks5.Command
 import Network.Socks5.Wire
 import Network.Socks5.Types
@@ -18,8 +17,8 @@ resolveToSockAddr (SocksAddress sockHostAddr port) =
     case sockHostAddr of
         SocksAddrIPV4 ha       -> return $ SockAddrInet port ha
         SocksAddrIPV6 ha6      -> return $ SockAddrInet6 port 0 ha6 0
-        SocksAddrDomainName bs -> do he <- getHostByName (BC.unpack bs)
-                                     return $ SockAddrInet port (hostAddress he)
+        SocksAddrDomainName bs -> do addr:_ <- getAddrInfo Nothing (Just $ BC.unpack bs) (Just $ show port)
+                                     return $ addrAddress addr
 
 socksListen :: Socket -> IO SocksRequest
 socksListen sock = do
