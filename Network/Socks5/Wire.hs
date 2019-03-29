@@ -12,7 +12,6 @@ module Network.Socks5.Wire
     , SocksResponse(..)
     ) where
 
-import Control.Applicative
 import Control.Monad
 import qualified Data.ByteString as B
 import Data.Serialize
@@ -20,7 +19,6 @@ import Data.Serialize
 import Network.Socket (PortNumber)
 
 import Network.Socks5.Types
-import Network.Socks5.Parse as P (anyByte, take)
 
 -- | Initial message sent by client with the list of authentification methods supported
 data SocksHello = SocksHello { getSocksHelloMethods :: [SocksMethod] }

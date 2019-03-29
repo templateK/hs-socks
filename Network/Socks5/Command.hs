@@ -22,7 +22,6 @@ module Network.Socks5.Command
     , waitSerialized
     ) where
 
-import Control.Applicative
 import Control.Exception
 import Data.ByteString (ByteString)
 import qualified Data.ByteString as B
